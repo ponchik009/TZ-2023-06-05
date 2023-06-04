@@ -1,46 +1,73 @@
-# Getting Started with Create React App
+# Тестовое задание на позицию фронтенд разработчика
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+## В чём задача?
 
-## Available Scripts
+В рамках тестового задания требуется разработать пользовательский интерфейс для
+отправки и получений сообщений WhatsApp с использованием технологии https://green-api.com/docs/api
 
-In the project directory, you can run:
+Ожидаемый результат:
 
-### `npm start`
+• Пользователь переходит на сайт чата и вводит свои учетные данные из
+системы GREEN-API (idInstance, apiTokenInstance)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+• Пользователь вводит номер телефона получателя и создает новый чат
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+• Пользователь пишет текстовое сообщение и отправляет его получателю в
+WhatsApp
 
-### `npm test`
+• Получатель отвечает на сообщение в мессенджере WhatsApp
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+• Пользователь видит ответ получателя в чате
 
-### `npm run build`
+## Какой стек?
+React, Typescript, Redux 🙂
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Алгоритм работы
+1. При вводе instanceId и apiTokenInstance отправляем запрос SetSettings с адресом нашего вебхука
+2. Создаём комнату в ws (ключ = apiTokenInstance). В комнате содержатся чаты и сообщения в них
+2. Создаём чат по номеру (запись в ws)
+3. Отправляем сообщение по номеру (https://green-api.com/docs/api/chat-id/) (записываем в мапу с чатом)
+4. При получении уведомления на сервер парсим тело запроса, включая имя контакта (если есть) (записывает в чат в ws)
+5. Отправвляем по ws уведомление на фронт
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Инструкция по запуску
+1. Клонируем репозиторий
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+git clone https://github.com/ponchik009/TZ-2023-06-05
 
-### `npm run eject`
+2. Устанавливаем пакеты
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+npm install
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Устанавливаем пакеты для вебхука
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+cd webhook
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+npm install
 
-## Learn More
+4. Запускаем вебхук на публичном адресе
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+node webhook.js (или node webhook/webhook.js - если находитесь в корне проекта)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+5. В корне проекта создаём файл .env и заполняем по следующему шаблону:
+
+REACT_APP_API_URL = <ссыла на апи green-api> (сейчас: https://api.green-api.com/)
+
+REACT_APP_SOCKET_URL = <ссылка на публичный адрес, на котором запущен вебхук с протоколом ws> (у меня: wss://andromeda.oleg.ninja)
+
+REACT_APP_WEBHOOK_URL = <ссылка на публичный адрес, на котором запущен вебхук с протоколом http> (у меня: https://andromeda.oleg.ninja)
+
+6. Запускаем проект
+
+npm start
+
+## Скриншотики
+
+![изображение](https://github.com/ponchik009/TZ-2023-06-05/assets/98012969/5d16bf88-1292-4b14-8b26-4e3b1dfab275)
+
+![изображение](https://github.com/ponchik009/TZ-2023-06-05/assets/98012969/9ddd334f-c709-42a1-86de-58502c8245ab)
+
+![изображение](https://github.com/ponchik009/TZ-2023-06-05/assets/98012969/bb9a02bd-ecfc-4947-b708-605341a9f32e)
+
+![изображение](https://github.com/ponchik009/TZ-2023-06-05/assets/98012969/edb5616e-e75b-4f3b-8209-70c1659e3f6e)
+
