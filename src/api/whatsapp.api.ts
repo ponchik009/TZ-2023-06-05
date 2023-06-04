@@ -5,7 +5,7 @@ import {
   CredentialsType,
   SaveSettingsResponseDto,
   SendMessageDto,
-} from "@/types";
+} from "../types";
 import { WEBHOOK_URL } from "../const/const";
 
 export class WhatsAppApi {

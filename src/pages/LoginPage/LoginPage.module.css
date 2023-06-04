@@ -1,0 +1,50 @@
+.wrapper {
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+
+  position: relative;
+}
+
+.header {
+  background-color: var(--light-green);
+  height: 25%;
+
+  z-index: 1;
+}
+
+.footer {
+  height: 100%;
+  background-color: var(--black);
+
+  z-index: 1;
+}
+
+.main {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 15%;
+  bottom: 0;
+  margin: 0 auto;
+  z-index: 2;
+
+  min-width: 60%;
+  width: fit-content;
+  height: fit-content;
+
+  background-color: var(--bg-white);
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  padding: 64px;
+}
+
+.greeting {
+  font-size: 28px;
+  font-weight: 100;
+}

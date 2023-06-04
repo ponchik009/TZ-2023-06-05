@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { RootState } from "../store";
 
-import { CredentialsType, SendMessageDto, SessionType } from "@/types";
+import { CredentialsType, SendMessageDto, SessionType } from "../../types";
 import { whatsAppApi } from "../../api";
 
 export interface WhatsappState {

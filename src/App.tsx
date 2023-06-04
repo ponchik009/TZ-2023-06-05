@@ -15,6 +15,8 @@ import {
   setSettings,
 } from "./store/whatsappSlice";
 import { useAppDispatch, useAppSelector } from "./hooks/storeHooks";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./components";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -70,6 +72,8 @@ function App() {
       dispatch(setSession(data));
     });
   }, []);
+
+  return <RouterProvider router={router} />;
 
   return (
     <div className="App">
