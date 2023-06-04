@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import styles from "./Form.module.css";
 
-interface FormProps
+export interface FormProps
   extends React.DetailedHTMLProps<
     React.FormHTMLAttributes<HTMLFormElement>,
     HTMLFormElement

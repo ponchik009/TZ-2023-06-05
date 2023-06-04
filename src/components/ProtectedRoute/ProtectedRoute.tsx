@@ -10,6 +10,7 @@ export const ProtectedRoute = () => {
   return idInstance && idInstance.length ? (
     <Outlet />
   ) : (
+    // <Outlet />
     <Navigate to="/login" />
   );
 };

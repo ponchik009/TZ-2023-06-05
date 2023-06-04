@@ -16,7 +16,7 @@ export const LoginWidget = () => {
   return (
     <div className={styles.authBlock}>
       <h3 className={styles.authTitle}>Авторизация</h3>
-      <LoginForm onSumbit={onLoginFormSubmit} />
+      <LoginForm onLoginFormSubmit={onLoginFormSubmit} />
     </div>
   );
 };

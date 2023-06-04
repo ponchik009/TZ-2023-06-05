@@ -1,43 +1,31 @@
 import React, { FC, useCallback, useState } from "react";
 
-import { Input } from "../../../components";
-import { Button } from "../../../components";
-import { Form } from "../../../components";
+import { FormProps, Input, Button, Form } from "../../../components";
+import { useInput } from "../../../hooks";
 
 export type OnLoginSubmitDataType = {
   idInstance: string;
   apiTokenInstance: string;
 };
 
-interface LoginFormProps {
-  onSumbit: (data: OnLoginSubmitDataType) => void;
+interface LoginFormProps extends FormProps {
+  onLoginFormSubmit: (data: OnLoginSubmitDataType) => void;
 }
 
-export const LoginForm: FC<LoginFormProps> = ({ onSumbit }) => {
-  const [idInstance, setIdInstance] = useState("");
-  const [apiTokenInstance, setApiTokenInstance] = useState("");
-
-  const onIdInstanceChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setIdInstance(e.target.value);
-    },
-    [setIdInstance]
-  );
-
-  const onApiTokenInstanceChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setApiTokenInstance(e.target.value);
-    },
-    [setApiTokenInstance]
-  );
+export const LoginForm: FC<LoginFormProps> = ({
+  onLoginFormSubmit,
+  ...props
+}) => {
+  const [idInstance, onIdInstanceChange] = useInput("");
+  const [apiTokenInstance, onApiTokenInstanceChange] = useInput("");
 
   const onFormSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    onSumbit({ idInstance, apiTokenInstance });
+    onLoginFormSubmit({ idInstance, apiTokenInstance });
   };
 
   return (
-    <Form onSubmit={onFormSubmit}>
+    <Form onSubmit={onFormSubmit} {...props}>
       <Input
         type="text"
         placeholder="id instance"
@@ -52,7 +40,7 @@ export const LoginForm: FC<LoginFormProps> = ({ onSumbit }) => {
         value={apiTokenInstance}
         onChange={onApiTokenInstanceChange}
       />
-      <Button>Войти</Button>
+      <Button type="submit">Войти</Button>
     </Form>
   );
 };

@@ -74,23 +74,33 @@ const http = require("http");
     });
 
     app.post("/", (req, res) => {
+      console.log(req.body);
+
       const data = req.body;
-      const idInstance = data.instanceData.idInstance;
-      const senderPhone = data.senderData.sender.substring(0, 11);
-      const senderName = data.senderData.senderName;
-      const message = data.messageData.extendedTextMessageData?.text;
+      if (data.typeWebhook === "incomingMessageReceived") {
+        const idInstance = String(data.instanceData.idInstance);
+        const senderPhone = String(data.senderData.sender.substring(0, 11));
+        const senderName = data.senderData.senderName;
+        const message =
+          data.messageData.extendedTextMessageData?.text ||
+          data.messageData.textMessageData?.textMessage;
 
-      if (sessions.has(idInstance)) {
-        if (sessions.get(idInstance)[senderPhone]) {
-          sessions.get(idInstance)[senderPhone].contactName = senderName;
-          sessions.get(idInstance)[senderPhone].messages.push({
-            my: false,
-            text: message,
-          });
+        console.log(idInstance);
+        console.log(senderPhone);
+        console.log(sessions);
 
-          io.in(idInstance).emit("update", sessions.get(idInstance));
+        if (sessions.has(idInstance)) {
+          if (sessions.get(idInstance)[senderPhone]) {
+            // sessions.get(idInstance)[senderPhone].contactName = senderName;
+            sessions.get(idInstance)[senderPhone].messages.push({
+              my: false,
+              text: message,
+            });
 
-          console.log(sessions.get(idInstance));
+            io.in(idInstance).emit("update", sessions.get(idInstance));
+
+            console.log(sessions.get(idInstance));
+          }
         }
       }
 

@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./Button.module.css";
 import classNames from "classnames";
 
-interface ButtonProps
+export interface ButtonProps
   extends React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement

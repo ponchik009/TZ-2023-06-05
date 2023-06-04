@@ -14,7 +14,7 @@ export type SessionType = {
   };
 };
 
-type MessageType = {
+export type MessageType = {
   my: boolean;
   text: string;
 };

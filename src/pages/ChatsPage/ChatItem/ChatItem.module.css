@@ -1,0 +1,14 @@
+.chatItem {
+  padding: 26px 32px;
+
+  width: 100%;
+
+  background-color: var(--light-black);
+  color: var(--bg-white);
+
+  cursor: pointer;
+}
+
+.chatItemActive {
+  opacity: 0.5;
+}
